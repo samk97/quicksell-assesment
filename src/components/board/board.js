@@ -19,7 +19,7 @@ const Board = () => {
 
     console.log(groupBy);
     return (
-        <>
+        <div className="board-main">
             {
                 groupBy == "user" && <div className="board">
                     {
@@ -50,7 +50,7 @@ const Board = () => {
                     }
                 </div>
             }
-        </>
+        </div>
     )
 };
 

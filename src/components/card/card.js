@@ -6,11 +6,16 @@ import urgent from '../../assets/low-connection.png';
 import high from '../../assets/signal.png';
 import medium from '../../assets/signalmid.png';
 import low from '../../assets/low-connection.png';
+import backlog from '../../assets/backlog.png';
+import todo from '../../assets/todo.png';
+import process from '../../assets/process.png';
+import done from '../../assets/done.png';
+import cancel from '../../assets/cancel.png';
 import { useDataApi } from "../../context/ApiContext";
 
 const Card = ({ ticket }) => {
 
-    const { userData, ticketData, groupBy } = useDataApi();
+    const { userData, ticketData, groupBy, updateGroupFilter, OrderBy, updateOrderFilter } = useDataApi();
 
     const statusIcons = {
         0: noPreority,
@@ -19,7 +24,13 @@ const Card = ({ ticket }) => {
         3: medium,
         4: low
     }
-
+    const statisIcons = {
+        'Backlog':backlog,
+        'Todo':todo,
+        'In progress':process,
+        'Done':done,
+        'Canceled':cancel
+    }
     const [user, setUser] = useState(null)
     const getUser = () => {
         const data = userData.find((x) => x.id === ticket.userId);
@@ -45,7 +56,7 @@ const Card = ({ ticket }) => {
 
             </div>
             <div className="card-title">
-                {/* <div className="card-title-logo">ghh</div> */}
+                {groupBy != 'status' && <div className="card-title-logo"><img src={statisIcons[ticket.status]}/></div>}
                 <h5 className="card-title-text">{ticket.title}</h5>
             </div>
 
