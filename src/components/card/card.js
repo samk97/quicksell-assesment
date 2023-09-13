@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import "./card.css"
-// import "../../assets"
 import noPreority from '../../assets/option.png';
 import urgent from '../../assets/low-connection.png';
 import high from '../../assets/signal.png';
@@ -15,8 +14,10 @@ import { useDataApi } from "../../context/ApiContext";
 
 const Card = ({ ticket }) => {
 
+    // Get the user data from the context
     const { userData, ticketData, groupBy, updateGroupFilter, OrderBy, updateOrderFilter } = useDataApi();
 
+    // Define the status icons
     const statusIcons = {
         0: noPreority,
         1: urgent,
@@ -24,6 +25,8 @@ const Card = ({ ticket }) => {
         3: medium,
         4: low
     }
+
+    // Define the status icons
     const statisIcons = {
         'Backlog':backlog,
         'Todo':todo,
@@ -31,20 +34,24 @@ const Card = ({ ticket }) => {
         'Done':done,
         'Canceled':cancel
     }
+
+    // Define the user state
     const [user, setUser] = useState(null)
+
+    // Get the user data
     const getUser = () => {
         const data = userData.find((x) => x.id === ticket.userId);
         setUser(data);
     }
 
-
+    // Call the getUser function when the component mounts
     useEffect(() => {
         if (groupBy != 'user') {
             getUser();
         }
     }, [])
 
-
+    // Render the card
     return (
         <div className="card">
             <div className="card-header">

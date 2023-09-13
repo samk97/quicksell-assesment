@@ -1,3 +1,4 @@
+// Importing necessary files and libraries
 import "./column.css"
 import Card from "../card/card";
 import { useEffect, useState } from "react";
@@ -12,8 +13,11 @@ import process from '../../assets/process.png';
 import done from '../../assets/done.png';
 import cancel from '../../assets/cancel.png';
 import { useDataApi } from "../../context/ApiContext";
+
+// Defining the Column component
 const Column = ({id}) => {
     
+    // Defining priority types and icons
     const priorityTypes = {
         0:'No Priority',
         1:'Urgent',
@@ -28,6 +32,7 @@ const Column = ({id}) => {
         3:medium,
         4:low
     }
+    // Defining status icons
     const statisIcons = {
         'Backlog':backlog,
         'Todo':todo,
@@ -36,11 +41,14 @@ const Column = ({id}) => {
         'Canceled':cancel
     }
     
+    // Defining state variables
     const [tickets, setTickets] = useState()
     const [title, setTitle] = useState(id);
 
+    // Getting data from the API context
     const { userData, ticketData, groupBy, updateGroupFilter, OrderBy, updateOrderFilter } = useDataApi();
 
+    // Filtering tickets by user
     const filterTicketsByUser= async ()=>{
         const data =await ticketData.filter(x=>{
             if(x.userId === id)
@@ -51,6 +59,7 @@ const Column = ({id}) => {
         setTickets(data);
     }
 
+    // Filtering tickets by status
     const filterTicketsByStatus= ()=>{
         const data = ticketData.filter(x=>{
             if(x.status === id)
@@ -59,6 +68,7 @@ const Column = ({id}) => {
         setTickets(data);
     }
 
+    // Filtering tickets by priority
     const filterTicketsByPriority= ()=>{
         const data = ticketData.filter(x=>{
             if(x.priority === id)
@@ -68,8 +78,7 @@ const Column = ({id}) => {
         setTickets(data);
     }
 
-  
-
+    // Updating the tickets based on the order filter
     useEffect(() => {
         if(groupBy == 'user')
             filterTicketsByUser();
@@ -85,6 +94,7 @@ const Column = ({id}) => {
 
     }, [OrderBy])
     
+    // Rendering the component
     return (
         <div className="column">
             <div className="column-title">
@@ -112,4 +122,5 @@ const Column = ({id}) => {
     );
 };
 
+// Exporting the component
 export default Column;

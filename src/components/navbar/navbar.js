@@ -4,46 +4,50 @@ import './navbar.css';
 import { useDataApi } from "../../context/ApiContext";
 
 function Navbar() {
+  // State to keep track of whether the dropdown is visible or not
   const [isDropdownVisible, setDropdownVisible] = useState(false);
-  const dropdownRef = useRef(null); // Ref to the dropdown element
+  // Ref to the dropdown element
+  const dropdownRef = useRef(null);
 
+  // Function to toggle the visibility of the dropdown
   const toggleDropdown = () => {
     setDropdownVisible(!isDropdownVisible);
   };
 
+  // Function to close the dropdown
   const closeDropdown = () => {
     setDropdownVisible(false);
   };
 
+  // Function to handle changes to the grouping dropdown
   const handleDropdownChange = (event) => {
     const value = event.target.value;
     updateGroupFilter(value);
     closeDropdown(); // Close the dropdown when an option is chosen
   };
 
+  // Function to handle changes to the ordering dropdown
   const handleDropdownChange2 = (event) => {
     const value = event.target.value;
     updateOrderFilter(value);
     closeDropdown(); // Close the dropdown when an option is chosen
   };
 
+  // Effect to add an event listener to detect clicks outside of the dropdown
   useEffect(() => {
-    // Add event listener to detect clicks outside of the dropdown
     function handleClickOutside(event) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         closeDropdown();
       }
     }
-
-    // Attach the event listener
     document.addEventListener("mousedown", handleClickOutside);
-
     // Clean up the event listener on component unmount
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
+  // Get the updateGroupFilter and updateOrderFilter functions from the ApiContext
   const { updateGroupFilter, updateOrderFilter } = useDataApi();
 
   return (

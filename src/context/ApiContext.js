@@ -6,11 +6,7 @@ export const useDataApi= ()=> {
   return useContext(DataApiContext);
 }
 
-
-
-
-
-
+// This is the DataApiProvider component
 export const DataApiProvider = ({ children }) => {
     const [userData, setUserData] = useState();
     const [ticketData, setTicketData] = useState();
@@ -26,7 +22,7 @@ export const DataApiProvider = ({ children }) => {
         setOrderBy(key);
     }
 
-
+  // Fetch data from API
   useEffect(() => {
     const fetchData = async () => {
         try {
@@ -46,9 +42,12 @@ export const DataApiProvider = ({ children }) => {
     fetchData();
   }, []);
 
+  // Return the DataApiContext provider with the necessary values
   return (
     <DataApiContext.Provider value={{ userData,ticketData,groupBy,updateGroupFilter,OrderBy,updateOrderFilter }}>
       {children}
     </DataApiContext.Provider>
   );
 }
+
+// End of DataApiProvider component
