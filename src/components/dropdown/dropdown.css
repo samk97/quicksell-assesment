@@ -1,0 +1,43 @@
+/* Style the dropdown indicator */
+.dropdown-indicator {
+    margin-left: 5px; /* Add spacing between the text and the indicator */
+  }
+
+/* Dropdown menu styles */
+.dropdown-menu {
+  display: none; 
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #d9dbda;
+  list-style-type: none;
+  padding: 0;
+  margin: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+
+/* Show the dropdown menu when 'visible' class is added */
+.dropdown-menu.visible {
+  display: block;
+}
+
+.dropdown-item {
+  font-size: 16px;
+  padding: 10px;
+}
+
+.dropdown-item a {
+  text-decoration: none;
+  color: #000;
+}
+
+/* Style the dropdown indicator when the dropdown is open */
+.navbar-item.active .dropdown-indicator {
+  transform: rotate(180deg); /* Rotate the indicator to point upward */
+}
+
+/* Remove hover effect for the dropdown menu items */
+.dropdown-item:hover {
+  background-color: transparent;
+}
